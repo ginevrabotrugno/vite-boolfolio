@@ -1,20 +1,27 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-    //DEBUG 
-    background-color: brown;
-    color: white;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    .container {
-        max-width: 60%;
-        margin: 0 auto;
-        border-radius: 10px;
-        border: 1px solid white;
-        padding: 20px;
-    }
+:root {
+    --primary : #1E3A5F;
+    --secondary : #7FDBDA;
+    --background : #F5F5F5;
+    --accent : #FEC107;
+    --neutral : #FFFFFF;
+    background-color: var(--background);
+    color: var(--primary);
+    font-family: "Montserrat", sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
 }
