@@ -64,8 +64,7 @@ nav {
             margin-left: 50px;
             font-weight: 700;
 
-            &:hover,
-            &.active {
+            &:hover {
                 color: var(--neutral);
                 background-color: var(--primary);
             }

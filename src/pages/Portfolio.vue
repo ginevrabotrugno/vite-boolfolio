@@ -8,17 +8,25 @@
             return {
                 projects: [],
                 links: [],
-                isLoading: true
+                isLoading: true,
+                paginatorData: {
+                    current_page: 1,
+                    links: [],
+                }
             }
         },
         methods:{
-            getApi(){
-                axios.get(store.apiUrl + 'projects')
+            getApi(apiUrl){
+                this.isLoading = true;
+
+                axios.get(apiUrl)
                     .then(result =>{
                         this.projects = result.data.projects.data;
+                        this.paginatorData.current_page = result.data.projects.current_page;
+                        this.paginatorData.links = result.data.projects.links;
                         this.links = result.data.projects.links;
-                        console.log(this.links);
                         this.isLoading = false;
+                        console.log(this.paginatorData);
                     })
                     .catch(error => {
                         console.log(error.message);
@@ -26,7 +34,7 @@
             }
         },
         mounted(){
-            this.getApi();
+            this.getApi(store.apiUrl + 'projects');
         }
     }
 </script>
@@ -36,11 +44,22 @@
 
     <div class="cards-container">
         <div v-if="isLoading" class="loader"></div>
-        <ul v-else>
-            <li v-for="project in this.projects" :key="project.id">
-                {{ project.title }}
-            </li>
-        </ul>
+        <div v-else>
+            <ul>
+                <li v-for="project in this.projects" :key="project.id">
+                    {{ project.title }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div v-if="!isLoading" class="paginator">
+        <button
+            v-for="(link, i) in paginatorData.links"
+            :key="i"
+            v-html="link.label"
+            :disabled="link.active || !link.url"
+            @click="getApi(link.url)">            
+        </button>
     </div>
 </template>
 
@@ -96,8 +115,36 @@
             }
 
         }
-
+        
     }
+
+    .paginator {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+
+            button {
+                font-family: inherit;
+                padding: 4px 10px;
+                cursor: pointer;
+                background-color: var(--background);
+                color: var(--primary);
+                border: 0.5px solid var(--primary);
+                border-radius: 3px;
+                margin: 0 2px;
+
+                &:hover,
+                &:disabled {
+                    background-color: var(--primary);
+                    color: var(--neutral);
+                }
+
+                &:disabled {
+                    opacity: 0.5;
+                }
+            }
+        }
+
 
 
 </style>
