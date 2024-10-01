@@ -42,6 +42,25 @@
 <template>
     <h1>Portfolio</h1>
 
+    <div class="types">
+        <div class="type">HTML</div>
+        <div class="type">CSS</div>
+        <div class="type">JavaScript</div>
+        <div class="type">Php</div>
+    </div>
+
+    <div class="technologies">
+        <div class="technology">Front End</div>
+        <div class="technology">Back End</div>
+        <div class="technology">Design</div>
+        <div class="technology">UX</div>
+        <div class="technology">UI</div>
+        <div class="technology">Laravel</div>
+        <div class="technology">VueJs</div>
+        <div class="technology">Angular</div>
+        <div class="technology">React</div>
+    </div>
+
     <div class="cards-container">
         <div v-if="isLoading" class="loader"></div>
         <div v-else>
@@ -64,6 +83,51 @@
 </template>
 
 <style scoped lang="scss">
+
+    .types {
+        width: 80%;
+        margin: 25px auto 15px;
+        display: flex;
+        justify-content: space-evenly;
+        border-top: 2px dashed var(--accent);
+        border-bottom: 2px dashed var(--accent);
+        line-height: 50px;
+        
+        .type {
+            cursor: pointer;
+            padding: 0 15px;
+            margin: 5px 0;
+            font-weight: 600;
+            
+            &:hover {
+                background-color: var(--secondary);
+                color: var(--primary);
+                text-decoration: underline;
+            }
+            
+        }
+    }
+    
+    .technologies {
+        width: 80%;
+        margin: 0 auto 40px;
+        display: flex;
+        justify-content: space-between;
+
+        .technology {
+            padding: 5px 10px;
+            font-size: 13px;
+            background-color: var(--accent);
+            border-radius: 20px;
+            border: 1px solid var(--accent);
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--neutral);
+                border: 1px solid var(--primary);
+            }
+        }
+    }
 
     .cards-container {
         padding: 20px;
@@ -143,7 +207,7 @@
                     opacity: 0.5;
                 }
             }
-        }
+    }
 
 
 

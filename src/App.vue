@@ -21,7 +21,7 @@
     margin-top: 80px;
 
     .container {
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
       text-align: center;
     }
