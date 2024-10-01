@@ -1,0 +1,20 @@
+body {
+
+    //DEBUG 
+    background-color: brown;
+    color: white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+
+    .container {
+        max-width: 60%;
+        margin: 0 auto;
+        border-radius: 10px;
+        border: 1px solid white;
+        padding: 20px;
+    }
+}
