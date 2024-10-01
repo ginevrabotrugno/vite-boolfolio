@@ -1,5 +1,7 @@
 <script>
+    import { store } from '../store/store.js';
     import axios from 'axios';
+
     export default {
         name: 'portfolio',
         data(){
@@ -9,7 +11,7 @@
         },
         methods:{
             getApi(){
-                axios.get('http://127.0.0.1:8000/api/projects')
+                axios.get(store.apiUrl + 'projects')
                     .then(result =>{
                         this.projects = result.data.projects;
                         console.log(this.projects);
