@@ -23,7 +23,7 @@
     header {
         width: 100%;
         height: 60px;
-        background-color: var(--background);
+        background-color: var(--neutral);
         position: fixed;
         top: 0;
         left: 0;
