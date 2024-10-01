@@ -1,6 +1,24 @@
 <script>
+    import axios from 'axios';
     export default {
-        name: 'portfolio'
+        name: 'portfolio',
+        data(){
+            return {
+                projects: []
+            }
+        },
+        methods:{
+            getApi(){
+                axios.get('http://127.0.0.1:8000/api/projects')
+                    .then(result =>{
+                        this.projects = result.data.projects;
+                        console.log(this.projects);
+                    })
+            }
+        },
+        mounted(){
+            this.getApi();
+        }
     }
 </script>
 
