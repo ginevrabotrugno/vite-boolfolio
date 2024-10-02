@@ -4,6 +4,7 @@ import About from '../pages/About.vue'
 import Contacts from '../pages/Contacts.vue'
 import Portfolio from '../pages/Portfolio.vue'
 import ProjectDetails from '../pages/ProjectDetails.vue'
+import Error404 from '../pages/Error404.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +34,12 @@ const router = createRouter({
       path: '/dettaglio-project/:slug',
       name: 'ProjectDetails',
       component: ProjectDetails
-    }
+    },
+    {
+      path: '/404',
+      name: '404',
+      component: Error404
+    },
   ]
 })
 

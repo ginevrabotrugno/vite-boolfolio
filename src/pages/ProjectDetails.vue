@@ -13,7 +13,14 @@
             getApi(slug){
                 axios.get(store.apiUrl + 'project/' + slug)
                     .then(res => {
-                        this.project = res.data.project;
+                        if(res.data.success){
+                            this.project = res.data.project;
+                            console.log(this.project);
+                            
+                        }
+                        else {
+                            this.$router.push({name: '404'});
+                        }
                     })
             }
         },
