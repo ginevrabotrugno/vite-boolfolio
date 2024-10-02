@@ -25,10 +25,10 @@
                     .then(result =>{
 
                         if(type === 'projects'){
-                            this.projects = result.data.projects.data;
-                            this.paginatorData.current_page = result.data.projects.current_page;
-                            this.paginatorData.links = result.data.projects.links;
-                            this.links = result.data.projects.links;
+                            this.projects = result.data.data.data;
+                            this.paginatorData.current_page = result.data.data.current_page;
+                            this.paginatorData.links = result.data.data.links;
+                            this.links = result.data.data.links;
                             this.isLoading = false;
                         } else {
                             this[type] = result.data.data;
@@ -67,7 +67,9 @@
         <div v-else>
             <ul>
                 <li v-for="project in this.projects" :key="project.id">
-                    {{ project.title }}
+                    <RouterLink :to="{name: 'ProjectDetails', params: {slug: project.slug}}">
+                        {{ project.title }}
+                    </RouterLink>
                 </li>
             </ul>
         </div>
