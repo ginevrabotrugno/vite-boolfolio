@@ -65,13 +65,6 @@
     <div class="cards-container">
         <div v-if="isLoading" class="loader"></div>
         <div v-else class="row">
-            <!-- <ul>
-                <li v-for="project in this.projects" :key="project.id">
-                    <RouterLink :to="{name: 'ProjectDetails', params: {slug: project.slug}}">
-                        {{ project.title }}
-                    </RouterLink>
-                </li>
-            </ul> -->
 
             <div class="card" v-for="project in projects" :key="project.id">
                 <h2> {{ project.title }} </h2>
