@@ -12,29 +12,39 @@
                 paginatorData: {
                     current_page: 1,
                     links: [],
-                }
+                },
+                types: [],
+                technologies: []
             }
         },
         methods:{
-            getApi(apiUrl){
+            getApi(apiUrl, type = 'projects'){
                 this.isLoading = true;
 
                 axios.get(apiUrl)
                     .then(result =>{
-                        this.projects = result.data.projects.data;
-                        this.paginatorData.current_page = result.data.projects.current_page;
-                        this.paginatorData.links = result.data.projects.links;
-                        this.links = result.data.projects.links;
-                        this.isLoading = false;
-                        console.log(this.paginatorData);
+
+                        if(type === 'projects'){
+                            this.projects = result.data.projects.data;
+                            this.paginatorData.current_page = result.data.projects.current_page;
+                            this.paginatorData.links = result.data.projects.links;
+                            this.links = result.data.projects.links;
+                            this.isLoading = false;
+                        } else {
+                            this[type] = result.data.data;
+                            console.log(this[type]);
+                        }
                     })
                     .catch(error => {
                         console.log(error.message);
                     })
+               
             }
         },
         mounted(){
-            this.getApi(store.apiUrl + 'projects');
+            this.getApi(store.apiUrl + 'types', 'types');
+            this.getApi(store.apiUrl + 'technologies', 'technologies');            
+            this.getApi(store.apiUrl + 'projects', 'projects');
         }
     }
 </script>
@@ -43,22 +53,13 @@
     <h1>Portfolio</h1>
 
     <div class="types">
-        <div class="type">HTML</div>
-        <div class="type">CSS</div>
-        <div class="type">JavaScript</div>
-        <div class="type">Php</div>
+        <div class="type" v-for="type in this.types" :key="type.id"> {{ type.name }} </div>
     </div>
 
     <div class="technologies">
-        <div class="technology">Front End</div>
-        <div class="technology">Back End</div>
-        <div class="technology">Design</div>
-        <div class="technology">UX</div>
-        <div class="technology">UI</div>
-        <div class="technology">Laravel</div>
-        <div class="technology">VueJs</div>
-        <div class="technology">Angular</div>
-        <div class="technology">React</div>
+        <div class="technology" v-for="technology in this.technologies" :key="technology.id">
+            {{ technology.name }}
+        </div>
     </div>
 
     <div class="cards-container">
