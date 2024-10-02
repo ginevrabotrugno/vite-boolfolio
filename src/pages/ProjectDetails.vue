@@ -15,8 +15,6 @@
                     .then(res => {
                         if(res.data.success){
                             this.project = res.data.project;
-                            console.log(this.project);
-                            
                         }
                         else {
                             this.$router.push({name: '404'});
