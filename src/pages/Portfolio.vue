@@ -60,7 +60,7 @@
 
     <div class="technologies">
         <div class="technology" v-for="technology in this.technologies" :key="technology.id">
-            {{ technology.name }}
+            <RouterLink :to="{name: 'ProjectsPerTechnology', params: {slug: technology.slug}}"> {{ technology.name }} </RouterLink>    
         </div>
     </div>
 

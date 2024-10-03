@@ -5,6 +5,7 @@ import Contacts from '../pages/Contacts.vue'
 import Portfolio from '../pages/Portfolio.vue'
 import ProjectDetails from '../pages/ProjectDetails.vue'
 import ProjectsPerType from '../pages/ProjectsPerType.vue'
+import ProjectsPerTechnology from '../pages/ProjectsPerTechnology.vue'
 import Error404 from '../pages/Error404.vue'
 
 const router = createRouter({
@@ -40,6 +41,11 @@ const router = createRouter({
       path: '/projects-per-type/:slug',
       name: 'ProjectsPerType',
       component: ProjectsPerType
+    },
+    {
+      path: '/projects-per-technology/:slug',
+      name: 'ProjectsPerTechnology',
+      component: ProjectsPerTechnology
     },
     {
       path: '/404',
