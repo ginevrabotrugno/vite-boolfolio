@@ -53,7 +53,9 @@
     <h1>Portfolio</h1>
 
     <div class="types">
-        <div class="type" v-for="type in this.types" :key="type.id"> {{ type.name }} </div>
+        <div class="type" v-for="type in this.types" :key="type.id"> 
+            <RouterLink :to="{name: 'ProjectsPerType', params: {slug: type.slug}}"> {{ type.name }} </RouterLink>    
+        </div>
     </div>
 
     <div class="technologies">
@@ -142,7 +144,7 @@
     }
 
     .cards-container {
-        
+
         .loader {
             width: 40px;
             aspect-ratio: 1;

@@ -4,6 +4,7 @@ import About from '../pages/About.vue'
 import Contacts from '../pages/Contacts.vue'
 import Portfolio from '../pages/Portfolio.vue'
 import ProjectDetails from '../pages/ProjectDetails.vue'
+import ProjectsPerType from '../pages/ProjectsPerType.vue'
 import Error404 from '../pages/Error404.vue'
 
 const router = createRouter({
@@ -36,10 +37,15 @@ const router = createRouter({
       component: ProjectDetails
     },
     {
+      path: '/projects-per-type/:slug',
+      name: 'ProjectsPerType',
+      component: ProjectsPerType
+    },
+    {
       path: '/404',
       name: '404',
       component: Error404
-    },
+    }
   ]
 })
 
