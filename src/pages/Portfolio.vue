@@ -142,14 +142,7 @@
     }
 
     .cards-container {
-        // padding: 20px;
-        // margin: 25px 0;
-        // border-radius: 20px;
-        // border: 1px solid var(--primary);
-        // background-color: var(--background);
-        // position: relative;
-        // min-height: 200px;
-
+        
         .loader {
             width: 40px;
             aspect-ratio: 1;

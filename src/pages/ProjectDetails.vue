@@ -8,18 +8,20 @@
             return {
                 project:{},
                 projectType: {},
-                projectTechnologies: []
+                projectTechnologies: [],
+                isLoading: true
             }
         },
         methods: {
             getApi(slug){
                 axios.get(store.apiUrl + 'project/' + slug)
                     .then(res => {
+                        this.isLoading = false;
                         if(res.data.success){
                             this.project = res.data.project;
                             this.projectType = res.data.project.type;
                             this.projectTechnologies = res.data.project.technologies;
-                            // console.log(this.projectTechnologies);
+                            console.log(this.project);
                         }
                         else {
                             this.$router.push({name: '404'});
@@ -29,11 +31,9 @@
         },
         computed: {
             imageUrl() {
-                return this.project.img_path ? `http://localhost:8000/storage/${this.project.img_path}` : 'http://localhost:8000/img/placeholder.jpg';
+                const baseApi = 'http://localhost:8000';
+                return this.project.img_path !== '/img/placeholder.jpg' ? `${baseApi}/storage/${this.project.img_path}` : `${baseApi}/img/placeholder.jpg`;
             },
-            imageAlt() {
-                return this.project.img_original_name ? this.project.img_original_name : 'no image';
-            }
         },
         mounted(){
             const slug = this.$route.params.slug;
@@ -43,7 +43,8 @@
 </script>
 
 <template>
-    <div class="project">
+    <div v-if="isLoading" class="loader"></div>
+    <div v-else class="project">
         <div class="info">
             <h1> {{ project.title }} </h1>
             <h4> {{ project.start_date }} </h4>
@@ -67,7 +68,7 @@
             </div>
         </div>
         <div class="img">
-            <img :src="imageUrl" :alt="imageAlt">
+            <img :src="imageUrl" :alt="project.img_original_name">
         </div>
     </div>
 </template>
@@ -111,8 +112,56 @@
 
         .img {
             width: calc((100% / 2) - 30px);
+
+            img {
+                max-width: 100%;
+                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            }
         }
     }
+
+    .loader {
+        width: 40px;
+        aspect-ratio: 1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        &:before,
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: -8px 0 0 -8px;
+            width: 16px;
+            aspect-ratio: 1;
+            background: var(--secondary);
+            animation:
+                l1-1 2s  infinite,
+                l1-2 .5s infinite;
+        }
+
+        &:after {
+            background:var(--accent);
+            animation-delay: -1s,0s;
+        }
+
+        @keyframes l1-1 {
+            0%   {top:0   ;left:0}
+            25%  {top:100%;left:0}
+            50%  {top:100%;left:100%}
+            75%  {top:0   ;left:100%}
+            100% {top:0   ;left:0}
+        }
+
+        @keyframes l1-2 {
+            80%,100% {transform: rotate(0.5turn)}
+        }
+
+    }
+
 
 </style>
 
