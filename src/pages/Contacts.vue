@@ -65,7 +65,9 @@
             <small class="error"> {{ errors.message?.toString() }} </small>
             <button type="submit">INVIA</button>
         </form>
-        <h2 v-else>Messaggio inviato correttamente</h2>
+        <div v-else class="sent">
+            <h2>Grazie! Il messaggio è stato inviato correttamente.</h2>
+        </div>
     </div>
 
     <div v-else class="loader"></div>
@@ -160,6 +162,14 @@
             text-align: left;
             margin: 5px 10px;
         }
+    }
+
+    .sent {
+        width: 60%;
+        padding: 20px 30px;
+        margin: 50px auto;
+        color: var(--accent);
+        text-align: center;
     }
     
 </style>
