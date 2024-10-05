@@ -13,10 +13,13 @@
                     email: [],
                     message: []
                 },
+                sending: false,
+                sent: false,
             }
         },
         methods: {
             sendForm(){
+                this.sending = true;
                 const data = {
                     name: this.name,
                     email: this.email,
@@ -25,9 +28,11 @@
 
                 axios.post(store.apiUrl + 'send-email', data)
                     .then(res => {
+                        this.sending = false;
                         if(!res.data.success){
                             this.errors = res.data.errors;
                         } else {
+                            this.sent = true;
                             this.errors = {
                                 name: [],
                                 email: [],
@@ -49,18 +54,21 @@
 
 <template>
     <h1>Contacts</h1>
+    
+    <div v-if="!this.sending">
+        <form v-if="!sent" @submit.prevent="sendForm">
+            <input v-model="name" type="text" placeholder="Nome">
+            <small class="error"> {{ errors.name?.toString() }} </small>
+            <input v-model="email" type="email" placeholder="Email">
+            <small class="error"> {{ errors.email?.toString() }} </small>
+            <textarea v-model="message" name="message" id="message" cols="30" rows="10" placeholder="Messaggio..."></textarea>
+            <small class="error"> {{ errors.message?.toString() }} </small>
+            <button type="submit">INVIA</button>
+        </form>
+        <h2 v-else>Messaggio inviato correttamente</h2>
+    </div>
 
-    <div v-if="isSending" class="loader"></div>
-
-    <form v-else @submit.prevent="sendForm">
-        <input v-model="name" type="text" placeholder="Nome">
-        <small class="error"> {{ errors.name?.toString() }} </small>
-        <input v-model="email" type="email" placeholder="Email">
-        <small class="error"> {{ errors.email?.toString() }} </small>
-        <textarea v-model="message" name="message" id="message" cols="30" rows="10" placeholder="Messaggio..."></textarea>
-        <small class="error"> {{ errors.message?.toString() }} </small>
-        <button type="submit">INVIA</button>
-    </form>
+    <div v-else class="loader"></div>
 </template>
 
 <style scoped lang="scss">  
