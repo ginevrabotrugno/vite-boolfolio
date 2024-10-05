@@ -1,52 +1,56 @@
 <script>
-    import { store } from '../store/store.js';
-    import axios from 'axios';
+import Card from '../components/Card.vue';
+import { store } from '../store/store.js';
+import axios from 'axios';
 
-    export default {
-        name: 'portfolio',
-        data(){
-            return {
-                projects: [],
+export default {
+    name: 'portfolio',
+    components: {
+        Card
+    },
+    data(){
+        return {
+            projects: [],
+            links: [],
+            isLoading: true,
+            paginatorData: {
+                current_page: 1,
                 links: [],
-                isLoading: true,
-                paginatorData: {
-                    current_page: 1,
-                    links: [],
-                },
-                types: [],
-                technologies: []
-            }
-        },
-        methods:{
-            getApi(apiUrl, type = 'projects'){
-                this.isLoading = true;
-
-                axios.get(apiUrl)
-                    .then(result =>{
-
-                        if(type === 'projects'){
-                            this.projects = result.data.data.data;
-                            this.paginatorData.current_page = result.data.data.current_page;
-                            this.paginatorData.links = result.data.data.links;
-                            this.links = result.data.data.links;
-                            this.isLoading = false;
-                        } else {
-                            this[type] = result.data.data;
-                            console.log(this[type]);
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error.message);
-                    })
-               
-            }
-        },
-        mounted(){
-            this.getApi(store.apiUrl + 'types', 'types');
-            this.getApi(store.apiUrl + 'technologies', 'technologies');            
-            this.getApi(store.apiUrl + 'projects', 'projects');
+            },
+            types: [],
+            technologies: []
         }
+    },
+    methods:{
+        getApi(apiUrl, type = 'projects'){
+            this.isLoading = true;
+
+            axios.get(apiUrl)
+                .then(result =>{
+
+                    if(type === 'projects'){
+                        this.projects = result.data.data.data;
+                        this.paginatorData.current_page = result.data.data.current_page;
+                        this.paginatorData.links = result.data.data.links;
+                        this.links = result.data.data.links;
+                        this.isLoading = false;
+                    } else {
+                        this[type] = result.data.data;
+                        console.log(this[type]);
+                    }
+                })
+                .catch(error => {
+                    console.log(error.message);
+                })
+            
+        }
+    },
+    mounted(){
+        this.getApi(store.apiUrl + 'types', 'types');
+        this.getApi(store.apiUrl + 'technologies', 'technologies');            
+        this.getApi(store.apiUrl + 'projects', 'projects');
     }
+}
 </script>
 
 <template>
@@ -67,22 +71,7 @@
     <div class="cards-container">
         <div v-if="isLoading" class="loader"></div>
         <div v-else class="row">
-
-            <div class="card" v-for="project in projects" :key="project.id">
-                <h2> {{ project.title }} </h2>
-                <h5> {{ project.start_date }} </h5>
-                <div class="type-label">
-                    {{ project.type.name }}
-                </div>
-                <ul>
-                    <li v-for="(technology, i) in project.technologies" :key="i">
-                        {{ technology.name }}
-                    </li>
-                </ul>
-                <RouterLink :to="{name: 'ProjectDetails', params: {slug: project.slug}}">
-                    <i class="fa-solid fa-eye"></i>
-                </RouterLink>
-            </div>
+            <Card v-for="project in projects" :key="project.id" :project="project"></Card>
         </div>
     </div>
     <div v-if="!isLoading" class="paginator">
@@ -193,41 +182,6 @@
             align-items: stretch;
             flex-wrap: wrap;
 
-            .card {
-                width: calc((100% / 4) - 20px);
-                aspect-ratio: 3 / 2;
-                padding: 15px;
-                text-align: left;
-                margin-top: 25px;
-                border-radius: 20px;
-                border: solid 1px var(--secondary);
-                background-color: var(--background);
-                position: relative;
-                line-height: 1.5;
-                box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-
-                .type-label {
-                    padding: 8px 12px;
-                    background-color: var(--secondary);
-                    font-weight: 600;
-                    border-radius: 10px;
-                    display: inline-block;
-                    margin: 10px 0;
-                }
-
-                ul {
-                    margin-top: 15px;
-                }
-                
-                a {
-                    padding: 6px 10px;
-                    border-radius: 50%;
-                    background-color: var(--accent);
-                    position: absolute;
-                    bottom: 20px;
-                    right: 25px;
-                }
-            }
         }
         
     }
