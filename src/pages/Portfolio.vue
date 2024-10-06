@@ -38,7 +38,6 @@ export default {
                         this.isLoading = false;
                     } else {
                         this[type] = result.data.data;
-                        console.log(this[type]);
                     }
                 })
                 .catch(error => {
