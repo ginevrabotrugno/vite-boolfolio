@@ -58,32 +58,44 @@ export default {
 <template>
     <h1>Portfolio</h1>
 
-    <div class="types">
-        <div class="type" v-for="type in this.types" :key="type.id"> 
-            <RouterLink :to="{name: 'ProjectsPerType', params: {slug: type.slug}}"> {{ type.name }} </RouterLink>    
-        </div>
-    </div>
+    <Loader v-if="isLoading"></Loader>
 
-    <div class="technologies">
-        <div class="technology" v-for="technology in this.technologies" :key="technology.id">
-            <RouterLink :to="{name: 'ProjectsPerTechnology', params: {slug: technology.slug}}"> {{ technology.name }} </RouterLink>    
+    <div v-else>
+        <div class="types">
+            <div class="type" v-for="type in this.types" :key="type.id"> 
+                <RouterLink :to="{name: 'ProjectsPerType', params: {slug: type.slug}}"> {{ type.name }} </RouterLink>    
+            </div>
         </div>
-    </div>
-
-    <div class="cards-container">
-        <Loader v-if="isLoading"></Loader>
-        <div v-else class="row">
-            <Card v-for="project in projects" :key="project.id" :project="project"></Card>
+        
+        <div class="technologies">
+            <div class="technology" v-for="technology in this.technologies" :key="technology.id">
+                <RouterLink :to="{name: 'ProjectsPerTechnology', params: {slug: technology.slug}}"> {{ technology.name }} </RouterLink>    
+            </div>
         </div>
-    </div>
-    <div v-if="!isLoading" class="paginator">
-        <button
-            v-for="(link, i) in paginatorData.links"
-            :key="i"
-            v-html="link.label"
-            :disabled="link.active || !link.url"
-            @click="getApi(link.url)">            
-        </button>
+    
+        <div class="searchbar">
+            <form action="#">
+                <input type="text" placeholder="Search ...">
+                <button>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
+        
+        <div class="cards-container">
+            <div class="row">
+                <Card v-for="project in projects" :key="project.id" :project="project"></Card>
+            </div>
+        </div>
+        <div class="paginator">
+            <button
+                v-for="(link, i) in paginatorData.links"
+                :key="i"
+                v-html="link.label"
+                :disabled="link.active || !link.url"
+                @click="getApi(link.url)">            
+            </button>
+        </div>
     </div>
 </template>
 
@@ -134,6 +146,43 @@ export default {
         }
     }
 
+    .searchbar {
+        width: 100%;
+        margin: 25px auto;
+        position: relative;
+        input {
+            width: 100%;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background-color: var(--background);
+            outline: none;
+            box-shadow: 0 0 10px #ccc;
+            font-family: inherit;
+            color: var(--primary);
+
+            &:focus {
+                border: 2px solid var(--secondary);
+            }
+        }
+        
+        button {
+            height: 100%;
+            padding: 10px 20px;
+            margin-left: 5px;
+            border-radius: 20px;
+            border: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--secondary);
+
+            &:hover {
+                background-color: var(--accent);
+            }
+        }
+    }
+
     .cards-container {
 
         .row {
@@ -162,8 +211,8 @@ export default {
 
                 &:hover,
                 &:disabled {
-                    background-color: var(--primary);
-                    color: var(--neutral);
+                    background-color: var(--secondary);
+                    color: var(--primary);
                 }
 
                 &:disabled {
