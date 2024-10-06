@@ -5,13 +5,18 @@
 </script>
 
 <template>
-    <h1>Errore 404</h1>
-    <p>
-        Pagina non trovata
-    </p>
+    <div>
+        <h1>Errore 404 |  Pagina non trovata</h1>
+    </div>
 </template>
 
 <style scoped lang="scss">
 
+div {
+    height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 </style>
 
