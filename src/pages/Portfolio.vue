@@ -138,10 +138,9 @@ export default {
 
         .row {
             display: flex;
-            justify-content: space-evenly;
+            justify-content: space-between;
             align-items: stretch;
             flex-wrap: wrap;
-
         }
         
     }
