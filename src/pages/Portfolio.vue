@@ -20,7 +20,8 @@ export default {
                 links: [],
             },
             types: [],
-            technologies: []
+            technologies: [],
+            inputSearch: ''
         }
     },
     methods:{
@@ -44,6 +45,10 @@ export default {
                     console.log(error.message);
                 })
             
+        },
+        search(){
+            const search = this.inputSearch;
+            console.log(search);
         }
     },
     mounted(){
@@ -73,8 +78,8 @@ export default {
         </div>
     
         <div class="searchbar">
-            <form action="#">
-                <input type="text" placeholder="Search ...">
+            <form @submit.prevent="search">
+                <input type="text" placeholder="Search ..." v-model="inputSearch">
                 <button>
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
