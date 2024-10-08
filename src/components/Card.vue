@@ -72,6 +72,8 @@ export default {
                 font-size: small;
                 display: flex;
                 gap: 15px;
+                max-width: 100%;
+                flex-wrap: wrap;
             }
         }
 
