@@ -47,8 +47,23 @@ export default {
             
         },
         search(){
-            const search = this.inputSearch;
-            console.log(search);
+            // this.isLoading = true;
+
+            const param = {
+                search: this.inputSearch
+            }
+
+            axios.post(store.apiUrl + 'projects-search', param)
+                .then(res => {
+                    this.projects = res.data.projects.data;
+                    this.paginatorData.current_page = res.data.projects.current_page;
+                    this.paginatorData.links = res.data.projects.links;
+                    this.links = result.data.projects.links;
+                    // this.isLoading =false;
+                })
+                .catch(error => {
+                    console.log(error.message);                    
+                })
         }
     },
     mounted(){
