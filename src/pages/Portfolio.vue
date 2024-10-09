@@ -13,7 +13,6 @@ export default {
     data(){
         return {
             projects: [],
-            links: [],
             isLoading: true,
             paginatorData: {
                 current_page: 1,
@@ -29,16 +28,15 @@ export default {
             this.isLoading = true;
 
             axios.get(apiUrl)
-                .then(result =>{
+                .then(res =>{
 
                     if(type === 'projects'){
-                        this.projects = result.data.data.data;
-                        this.paginatorData.current_page = result.data.data.current_page;
-                        this.paginatorData.links = result.data.data.links;
-                        this.links = result.data.data.links;
+                        this.projects = res.data.data.data;
+                        this.paginatorData.current_page = res.data.data.current_page;
+                        this.paginatorData.links = res.data.data.links;
                         this.isLoading = false;
                     } else {
-                        this[type] = result.data.data;
+                        this[type] = res.data.data;
                     }
                 })
                 .catch(error => {
@@ -47,7 +45,7 @@ export default {
             
         },
         search(){
-            // this.isLoading = true;
+            this.isLoading = true;
 
             const param = {
                 search: this.inputSearch
@@ -55,11 +53,10 @@ export default {
 
             axios.post(store.apiUrl + 'projects-search', param)
                 .then(res => {
-                    this.projects = res.data.projects.data;
-                    this.paginatorData.current_page = res.data.projects.current_page;
-                    this.paginatorData.links = res.data.projects.links;
-                    this.links = result.data.projects.links;
-                    // this.isLoading =false;
+                    this.projects = res.data.data.data;
+                    this.paginatorData.current_page = res.data.data.current_page;
+                    this.paginatorData.links = res.data.data.links;
+                    this.isLoading =false;
                 })
                 .catch(error => {
                     console.log(error.message);                    
