@@ -47,21 +47,44 @@ export default {
         search(){
             this.isLoading = true;
 
-            const param = {
-                search: this.inputSearch
+            if(this.inputSearch && this.inputSearch !== ''){
+                const param = {
+                    search: this.inputSearch
+                }
+    
+                axios.post(store.apiUrl + 'projects-search', param)
+                    .then(res => {
+                        this.projects = res.data.data.data;
+                        this.paginatorData.current_page = res.data.data.current_page;
+                        this.paginatorData.links = res.data.data.links;
+                        this.isLoading =false;
+                    })
+                    .catch(error => {
+                        console.log(error.message);                    
+                    })
+            } else {
+                this.getApi(store.apiUrl + 'projects', 'projects');
             }
 
-            axios.post(store.apiUrl + 'projects-search', param)
+        },
+        searchWithPagination(pageUrl) {
+            this.isLoading = true;
+
+            const param = {
+                search: this.inputSearch 
+            };
+
+            axios.post(pageUrl, param)
                 .then(res => {
                     this.projects = res.data.data.data;
                     this.paginatorData.current_page = res.data.data.current_page;
                     this.paginatorData.links = res.data.data.links;
-                    this.isLoading =false;
+                    this.isLoading = false;
                 })
                 .catch(error => {
-                    console.log(error.message);                    
-                })
-        }
+                    console.log(error.message);
+                });
+        },
     },
     mounted(){
         this.getApi(store.apiUrl + 'types', 'types');
@@ -109,7 +132,7 @@ export default {
                 :key="i"
                 v-html="link.label"
                 :disabled="link.active || !link.url"
-                @click="getApi(link.url)">            
+                @click.prevent="inputSearch ? searchWithPagination(link.url) : getApi(link.url)">            
             </button>
         </div>
     </div>
