@@ -1,29 +1,21 @@
-# vue-api-test
+# Boolfolio Front-End
 
-This template should help get you started developing with Vue 3 in Vite.
+## Descrizione
+Boolfolio è un’applicazione per la gestione e visualizzazione di un portfolio di progetti. L'interfaccia utente è costruita con **Vue 3** e **Vite**, e interagisce con un back-end sviluppato in **Laravel** tramite API. Il front-end consente agli utenti di visualizzare, cercare e filtrare progetti in modo interattivo.
 
-## Recommended IDE Setup
+Questo repository contiene solo la parte front-end del progetto. Il back-end è disponibile [qui](https://github.com/ginevrabotrugno/laravel-api).
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Stack Tecnologico
+- **Vue 3**: Utilizzato per la gestione dell’interfaccia utente e per creare componenti riutilizzabili e reattivi.
+- **Vite**: Strumento di build che permette un caricamento veloce durante lo sviluppo e la gestione del bundling per la produzione.
+- **Axios**: Libreria per eseguire richieste HTTP verso l’API del back-end.
+- **CSS/SCSS**: Per gestire gli stili e la personalizzazione grafica.
 
-## Customize configuration
+## Funzionalità Principali
+- **Visualizzazione dinamica dei progetti**: I progetti vengono caricati dal back-end e visualizzati in una griglia.
+- **Ricerca e filtro dei progetti**: Gli utenti possono cercare e filtrare i progetti in base a vari criteri.
+- **Integrazione con il back-end**: Il front-end si connette a un'API RESTful per ottenere i dati aggiornati in tempo reale.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+## Link Utili
+- **Back-End API**: [Laravel API Repository](https://github.com/ginevrabotrugno/laravel-api)
 
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
